@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class App {
 
+private String userName;
     private Scanner scanner = new Scanner(new InputStreamReader(System.in, Charset.forName("UTF-8")));
     private InputService userInput = new InputService(scanner);
     public static void main(String[] args) {
@@ -23,8 +24,12 @@ public class App {
     }
 
     private String handleUserRequest() {
+        //need to hold name and store for when they log or search for their reviews
+        System.out.println("Please enter your name> ");
+        this.userName = scanner.nextLine();
+
         System.out.println("Enter an option> ");
-        //String menuOptionNum = scanner.nextLine();
+
         int menuOptionNum = userInput.getIntInput();
 
         MenuOption option = MenuOption.fromOptionNum(menuOptionNum);
