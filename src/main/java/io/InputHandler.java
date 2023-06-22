@@ -1,12 +1,12 @@
-package IO;
+package io;
 
 import java.util.Scanner;
 
-public class InputService {
+public class InputHandler {
 
     private Scanner scanner;
 
-    public InputService(Scanner scanner) {
+    public InputHandler(Scanner scanner) {
         this.scanner = scanner;
     }
     public int getIntInput(){

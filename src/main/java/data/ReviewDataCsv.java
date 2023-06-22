@@ -7,7 +7,9 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ReviewDataCsv {
@@ -16,7 +18,7 @@ public class ReviewDataCsv {
 
     private static final String REVIEW_DATA_FILENAME = System.getProperty("user.home") + "/.TV_MovieReviewsFromCSV/" + REVIEW_DATA_RESOURCE;
 
-    private Map<String, Review> reviewList;
+    private Map<String, List<Review>> reviewList;
 
     public ReviewDataCsv() {
 
@@ -49,15 +51,33 @@ public class ReviewDataCsv {
 
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(csvReader);
             for (CSVRecord record : records) {
-
+                //row headers in csv needs to be skipped
                 if (record.getRecordNumber() == 1) {
                     continue;
                 }
-
+                // if csv is empty break the for loop
                 if (record.get(1).isEmpty()) {
-                    this.reviewList.put(record.get(0), (new Review(record.get(0), ", ", ", ", ", ")));
+                    break;
+                }
+                // current record review parameters
+                String currRecordTitle = record.get(0);
+                String currReviewText = record.get(1);
+                String currReviewer = record.get(2);
+                boolean currLikeDislike = false;
+                if (record.get(3).equals("true")) {
+                    currLikeDislike = true;
+                }
+                //construct a new review
+                Review currReview = new Review(currRecordTitle, currReviewText, currReviewer, currLikeDislike);
+                //add review to map by its tv or movie title
+                if (reviewList.containsKey(currRecordTitle)) {
+                    List<Review> currTitleReviews = reviewList.get(currRecordTitle);
+                    currTitleReviews.add(currReview);
+                    this.reviewList.put(currRecordTitle, currTitleReviews);
                 } else {
-                    this.reviewList.put(record.get(0), (new Review(record.get(0), record.get(1), record.get(2), record.get(3))));
+                    List<Review> newReviewlist = new ArrayList<>();
+                    newReviewlist.add(currReview);
+                    this.reviewList.put(currRecordTitle, newReviewlist);
                 }
             }
             csvReader.close();
@@ -87,7 +107,7 @@ public class ReviewDataCsv {
         }
     }
 
-    public Map<String, Review> getReviewList() {
+    public Map<String, List<Review>> getReviewList() {
         return reviewList;
     }
 }
