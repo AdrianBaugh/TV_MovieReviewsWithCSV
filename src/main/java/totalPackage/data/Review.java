@@ -1,4 +1,4 @@
-package data;
+package totalPackage.data;
 
 import java.util.Objects;
 

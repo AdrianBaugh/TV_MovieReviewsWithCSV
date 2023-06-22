@@ -1,4 +1,4 @@
-package data;
+package totalPackage.data;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
