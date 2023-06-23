@@ -6,8 +6,8 @@ import totalPackage.service.ReviewService;
 public class App {
 
     //need to set up DI and Dagger
-    private ReviewService  reviewService = new ReviewService(reviewer);
     private  Reviewer reviewer = new Reviewer(); // probably need a better place for this
+    private ReviewService  reviewService = new ReviewService(reviewer);
 
     private InputHandler inputHandler = new InputHandler();
     public static void main(String[] args) {
