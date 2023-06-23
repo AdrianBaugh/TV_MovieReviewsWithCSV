@@ -19,10 +19,10 @@ public class ReviewDao {
 
     // GET ALL REVIEWS
     public Map<String, List<Review>> getAllReviews(){
-        return reviewDataCsv.getReviewList();
+        return reviewDataCsv.getReviewsMap();
     }
 
-    // GET REVIEWS BY TITLE
+    // GET REVIEWS BY TV OR MOVIE TITLE
     // if no reviews for that title return an empty list
     public List<Review> getReviewsByTitle(String title) {
 
@@ -33,8 +33,8 @@ public class ReviewDao {
         return reviewMap.get(title);
 
     }
-    // ADD NEW REVIEWS
-    public void addReviewToCsv(Map<String, Review> newReviews){
+    // ADD NEW REVIEWS TO CSV FILE
+    public void addReviewToCsv(Map<String, List<Review>> newReviews){
         reviewDataCsv.writeToReviewCsv(newReviews);
     }
 

@@ -86,18 +86,21 @@ public class ReviewDataCsv {
         }
     }
 
-    public void writeToReviewCsv (Map<String, Review> newReviews) {
+    public void writeToReviewCsv (Map<String, List<Review>> newReviews) {
         File file = new File(REVIEW_DATA_FILENAME);
         FileWriter fileWriter = null;
 
         try {
             fileWriter = new FileWriter(file, true);
             for (String title : newReviews.keySet()){
-                Review currReview = newReviews.get(title);
+                for (Review currReview : newReviews.get(title)) {
+
+
                 fileWriter.write("\n" + currReview.getTitle()  + ", "
                         + currReview.getReviewText()  + ", "
                         + currReview.getReviewedBy()  + ", "
                         + currReview.isLikeOrDislike());
+                };
             }
             fileWriter.flush();
             fileWriter.close();
@@ -107,7 +110,8 @@ public class ReviewDataCsv {
         }
     }
 
-    public Map<String, List<Review>> getReviewList() {
+    public Map<String, List<Review>> getReviewsMap() {
+        reviewList.clear();
         return reviewList;
     }
 }

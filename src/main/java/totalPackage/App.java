@@ -5,10 +5,10 @@ import totalPackage.service.ReviewService;
 
 public class App {
 
-    private  Reviewer userName; // probably need a better place for this
-
     //need to set up DI and Dagger
-    private ReviewService  reviewService = new ReviewService();
+    private ReviewService  reviewService = new ReviewService(reviewer);
+    private  Reviewer reviewer = new Reviewer(); // probably need a better place for this
+
     private InputHandler inputHandler = new InputHandler();
     public static void main(String[] args) {
         App app = new App();
@@ -27,10 +27,10 @@ public class App {
     private String handleUserRequest() {
         //need to hold name and store for when they log or search for their reviews
         System.out.println("Please enter your name> ");
-        this.userName.setName( inputHandler.getInput());
+        String name = inputHandler.getInput();
+        reviewer.setName(name);
 
         System.out.println("Enter an option> ");
-
         int menuOptionNum = inputHandler.getIntInput();
 
         MenuOption option = MenuOption.fromOptionNum(menuOptionNum);

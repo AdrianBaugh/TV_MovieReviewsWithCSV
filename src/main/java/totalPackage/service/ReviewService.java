@@ -15,9 +15,13 @@ public class ReviewService {
     private ReviewDataCsv reviewDataCsv = new ReviewDataCsv();
     private InputHandler inputHandler = new InputHandler();
     private ReviewDao reviewDao = new ReviewDao(reviewDataCsv);
-    private Reviewer reviewer;
+    private Reviewer reviewer;// = new Reviewer();
 
-//    public ReviewService(ReviewDataCsv reviewDataCsv, InputHandler inputHandler, ReviewDao reviewDao) {
+    public ReviewService(Reviewer reviewer) {
+        this.reviewer = reviewer;
+    }
+
+    //    public ReviewService(ReviewDataCsv reviewDataCsv, InputHandler inputHandler, ReviewDao reviewDao) {
 //        this.reviewDataCsv = reviewDataCsv;
 //        this.inputHandler = inputHandler;
 //        this.reviewDao = reviewDao;
@@ -26,7 +30,7 @@ public class ReviewService {
     //  GET ALL REVIEWS AS LIST
     //  WAS PREVIOUSLY RETURNING A STRING WITH A RENDERED TABLE
     public List<Review> getAllReviews(){
-        Map<String, List<Review>> reviewList = reviewDataCsv.getReviewList();
+        Map<String, List<Review>> reviewList = reviewDataCsv.getReviewsMap();
         List<Review> results = new ArrayList<>();
         for (String title : reviewList.keySet()){
 
@@ -62,6 +66,12 @@ public class ReviewService {
 
         Review newReview = new Review(title, reviewText, currReviewerName, likeOrDislike);
         currTitleReviews.add(newReview);
+
+        Map<String, List<Review>> currReviewMap = reviewDao.getAllReviews();
+
+        currReviewMap.put(title, currTitleReviews);
+
+        reviewDao.addReviewToCsv(currReviewMap);
         return "Added your review for " + title;
 
     }
