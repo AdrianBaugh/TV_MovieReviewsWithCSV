@@ -1,3 +1,5 @@
+package totalPackage;
+
 public enum MenuOption {
     QUIT(0),
     NEW_REVIEW(1),
@@ -48,9 +50,9 @@ public enum MenuOption {
     }
 
     /**
-     * Convert an option number into a MenuOption
+     * Convert an option number into a totalPackage.MenuOption
      * @param optionNum
-     * @return The MenuOption that corresponds to the given option number
+     * @return The totalPackage.MenuOption that corresponds to the given option number
      * @throws IllegalArgumentException if the given optionNum is not valid
      */
     public static MenuOption fromOptionNum(int optionNum) {
@@ -65,7 +67,7 @@ public enum MenuOption {
             }
         }
 
-        throw new RuntimeException("Unable to find MenuOption for given optionNum");
+        throw new RuntimeException("Unable to find totalPackage.MenuOption for given optionNum");
     }
 
     private final int optionNum;

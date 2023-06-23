@@ -1,13 +1,15 @@
-import IO.InputService;
+package totalPackage;
 
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
-import java.util.Scanner;
+import totalPackage.io.InputHandler;
+import totalPackage.service.ReviewService;
 
 public class App {
 
-    private Scanner scanner = new Scanner(new InputStreamReader(System.in, Charset.forName("UTF-8")));
-    private InputService userInput = new InputService(scanner);
+    //need to set up DI and Dagger
+    private ReviewService  reviewService = new ReviewService(reviewer);
+    private  Reviewer reviewer = new Reviewer(); // probably need a better place for this
+
+    private InputHandler inputHandler = new InputHandler();
     public static void main(String[] args) {
         App app = new App();
         app.run();
@@ -23,16 +25,20 @@ public class App {
     }
 
     private String handleUserRequest() {
+        //need to hold name and store for when they log or search for their reviews
+        System.out.println("Please enter your name> ");
+        String name = inputHandler.getInput();
+        reviewer.setName(name);
+
         System.out.println("Enter an option> ");
-        //String menuOptionNum = scanner.nextLine();
-        int menuOptionNum = userInput.getIntInput();
+        int menuOptionNum = inputHandler.getIntInput();
 
         MenuOption option = MenuOption.fromOptionNum(menuOptionNum);
         switch (option) {
             case QUIT:
-                return "";
+                return option.toString();
             case NEW_REVIEW:
-                return "";
+                return reviewService.addReview();
             case SEARCH_FOR_REVIEW:
                 return "";
             case ALL_TV:
