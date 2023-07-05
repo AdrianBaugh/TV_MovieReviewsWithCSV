@@ -49,10 +49,17 @@ public class ReviewService {
     public String addReview(){
         System.out.println("Enter the title to a movie or TV show to review: ");
         String title = inputHandler.getInput();
+        if (title.contains(",")) {
+            title = removeCommas(title);
+        }
 
         System.out.println("Please enter your review now: ");
         String reviewText = inputHandler.getInput();
+        if (reviewText.contains(",")) {
+            reviewText = removeCommas(reviewText);
+        }
 
+        // add correct thumbs up function
         System.out.println("Overall thumbs-up or thumbs-down?");
         String thumbsUpDown = inputHandler.getInput();
         boolean likeOrDislike = true;
@@ -74,5 +81,19 @@ public class ReviewService {
         reviewDao.addReviewToCsv(currReviewMap);
         return "Added your review for " + title;
 
+    }
+
+    private String removeCommas(String review) {
+        String result = "";
+
+        for (int i = 0; i < review.length(); i++) {
+            Character currChar = review.charAt(i);
+           if (currChar.equals(',')){
+               result+= "";
+           } else {
+               result+=currChar;
+           }
+        }
+        return result;
     }
 }
