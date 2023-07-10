@@ -3,6 +3,7 @@ package totalPackage.dao;
 import totalPackage.data.Review;
 import totalPackage.data.ReviewDataCsv;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.Map;
 public class ReviewDao {
 
     private ReviewDataCsv reviewDataCsv;
-
+    @Inject
     public ReviewDao(ReviewDataCsv reviewDataCsv) {
         this.reviewDataCsv = reviewDataCsv;
     }

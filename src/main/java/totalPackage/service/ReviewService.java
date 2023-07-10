@@ -6,26 +6,28 @@ import totalPackage.data.Review;
 import totalPackage.data.ReviewDataCsv;
 import totalPackage.io.InputHandler;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class ReviewService {
 
-    private ReviewDataCsv reviewDataCsv = new ReviewDataCsv();
-    private InputHandler inputHandler = new InputHandler();
-    private ReviewDao reviewDao = new ReviewDao(reviewDataCsv);
+    private ReviewDataCsv reviewDataCsv;// = new ReviewDataCsv();
+    private InputHandler inputHandler;// = new InputHandler();
+    private ReviewDao reviewDao;// = new ReviewDao(reviewDataCsv);
     private Reviewer reviewer;// = new Reviewer();
 
-    public ReviewService(Reviewer reviewer) {
-        this.reviewer = reviewer;
-    }
-
-    //    public ReviewService(ReviewDataCsv reviewDataCsv, InputHandler inputHandler, ReviewDao reviewDao) {
-//        this.reviewDataCsv = reviewDataCsv;
-//        this.inputHandler = inputHandler;
-//        this.reviewDao = reviewDao;
+//    public ReviewService(Reviewer reviewer) {
+//        this.reviewer = reviewer;
 //    }
+    @Inject
+    public ReviewService(Reviewer reviewer, ReviewDataCsv reviewDataCsv, InputHandler inputHandler, ReviewDao reviewDao) {
+        this.reviewer = reviewer;
+        this.reviewDataCsv = reviewDataCsv;
+        this.inputHandler = inputHandler;
+        this.reviewDao = reviewDao;
+    }
 
     //  GET ALL REVIEWS AS LIST
     //  WAS PREVIOUSLY RETURNING A STRING WITH A RENDERED TABLE
